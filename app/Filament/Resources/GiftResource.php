@@ -1,21 +1,18 @@
+
 <?php
 
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GiftResource\Pages;
-use App\Filament\Resources\GiftResource\RelationManagers;
 use App\Models\Gift;
-use Filament\Forms;
-use Filament\Forms\Components\BelongsToSelect;
-use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GiftResource extends Resource
 {
@@ -29,13 +26,24 @@ class GiftResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()->schema([
-                    BelongsToSelect::make('wedding_id')->label('Wedding')->relationship('wedding', 'name'),
-                    TextInput::make('name')->required(),
-                    TextInput::make('address')->required(),
-                    TextInput::make('maps'),
-                    TextInput::make('note')->name('patokan'),
-                ])
+                Section::make('Gift Information')
+                    ->schema([
+                        Select::make('wedding_id')
+                            ->label('Wedding')
+                            ->relationship('wedding', 'name')
+                            ->required(),
+
+                        TextInput::make('name')
+                            ->required(),
+
+                        TextInput::make('address')
+                            ->required(),
+
+                        TextInput::make('maps'),
+
+                        TextInput::make('note')
+                            ->label('Patokan'),
+                    ]),
             ]);
     }
 
@@ -43,13 +51,16 @@ class GiftResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('address'),
-                TextColumn::make('maps'),
+                TextColumn::make('name')
+                    ->searchable(),
+
+                TextColumn::make('address')
+                    ->searchable(),
+
+                TextColumn::make('maps')
+                    ->limit(50),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -62,9 +73,7 @@ class GiftResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
