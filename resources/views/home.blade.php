@@ -1167,27 +1167,27 @@
 
     <div class="bg-gallery">
         <div class="bg-photo bg-photo-1">
-            <img src="{{ asset('storage/gallery1.jpg') }}" alt="Michael and Sofia" onerror="this.src='https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=300&h=360&fit=crop'">
+            <img src="{{ asset('storage/gallery1.jpg') }}" alt="">
         </div>
         <div class="bg-photo bg-photo-2">
-            <img src="{{ asset('storage/gallery2.jpg') }}" alt="Michael and Sofia" onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=300&h=360&fit=crop'">
+            <img src="{{ asset('storage/gallery2.jpg') }}" alt="">
         </div>
         <div class="bg-photo bg-photo-3">
-            <img src="{{ asset('storage/gallery3.jpg') }}" alt="Michael and Sofia" onerror="this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=300&h=360&fit=crop'">
+            <img src="{{ asset('storage/gallery3.jpg') }}" alt="" >
         </div>
         <div class="bg-photo bg-photo-4">
-            <img src="{{ asset('storage/gallery4.jpg') }}" alt="Michael and Sofia" onerror="this.src='https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=300&h=360&fit=crop'">
+            <img src="{{ asset('storage/gallery4.jpg') }}" alt="" >
         </div>
         <div class="bg-photo bg-photo-5">
-            <img src="{{ asset('storage/gallery5.jpg') }}" alt="Michael and Sofia" onerror="this.src='https://images.unsplash.com/photo-1525258253516-1e26b8968a02?w=300&h=360&fit=crop'">
+            <img src="{{ asset('storage/gallery5.jpg') }}" alt="" >
         </div>
         <div class="bg-photo bg-photo-6">
-            <img src="{{ asset('storage/gallery6.jpg') }}" alt="Michael and Sofia" onerror="this.src='https://images.unsplash.com/photo-1529636798458-92182e662485?w=300&h=360&fit=crop'">
+            <img src="{{ asset('storage/gallery6.jpg') }}" alt="" >
         </div>
     </div>
 
     <div class="couple-photo-frame" id="couplePhotoFrame">
-        <img src="{{ asset('storage/gallery2.jpg') }}" alt="Michael and Sofia" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop'">
+        <img src="{{ asset('storage/gallery2.jpg') }}" alt="" >
     </div>
     <p class="couple-photo-hint">📷 tap photo for our gallery</p>
 
@@ -1221,7 +1221,7 @@
 
             <div class="couple-names-row">
                 <div class="person-photo">
-                    <img src="{{ asset('storage/male.jpg') }}" alt="Michael" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop'">
+                    <img src="{{ asset('storage/male.jpg') }}" alt="" >
                     <span class="person-label">Groom</span>
                 </div>
 
@@ -1232,7 +1232,7 @@
                 </div>
 
                 <div class="person-photo">
-                    <img src="{{ asset('storage/female.jpg') }}" alt="Sofia" onerror="this.src='https://images.unsplash.com/photo-1509783236416-c9ad59bae472?w=300&h=300&fit=crop'">
+                    <img src="{{ asset('storage/female.jpg') }}" alt="">
                     <span class="person-label">Bride</span>
                 </div>
             </div>
@@ -1526,14 +1526,14 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ============ WEDDING PHOTO GALLERY MODAL ============ */
     const weddingPhotos = [
        
-        { src: "{{ asset('storage/male.jpg') }}", fallback: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1000&fit=crop', alt: 'Michael' },
-        { src: "{{ asset('storage/female.jpg') }}", fallback: 'https://images.unsplash.com/photo-1509783236416-c9ad59bae472?w=800&h=1000&fit=crop', alt: 'Sofia' },
-        { src: "{{ asset('storage/gallery1.jpg') }}", fallback: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&h=1000&fit=crop', alt: 'Wedding moment 1' },
-        { src: "{{ asset('storage/gallery2.jpg') }}", fallback: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800&h=1000&fit=crop', alt: 'Wedding moment 2' },
-        { src: "{{ asset('storage/gallery3.jpg') }}", fallback: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&h=1000&fit=crop', alt: 'Wedding moment 3' },
-        { src: "{{ asset('storage/gallery4.jpg') }}", fallback: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&h=1000&fit=crop', alt: 'Wedding moment 4' },
-        { src: "{{ asset('storage/gallery5.jpg') }}", fallback: 'https://images.unsplash.com/photo-1525258253516-1e26b8968a02?w=800&h=1000&fit=crop', alt: 'Wedding moment 5' },
-        { src: "{{ asset('storage/gallery6.jpg') }}", fallback: 'https://images.unsplash.com/photo-1529636798458-92182e662485?w=800&h=1000&fit=crop', alt: 'Wedding moment 6' },
+        { src: "{{ asset('storage/male.jpg') }}", },
+        { src: "{{ asset('storage/female.jpg') }}",  },
+        { src: "{{ asset('storage/gallery1.jpg') }}",  },
+        { src: "{{ asset('storage/gallery2.jpg') }}",  },
+        { src: "{{ asset('storage/gallery3.jpg') }}",  },
+        { src: "{{ asset('storage/gallery4.jpg') }}",  },
+        { src: "{{ asset('storage/gallery5.jpg') }}",  },
+        { src: "{{ asset('storage/gallery6.jpg') }}",  },
         { src: "{{ asset('storage/1.jpg') }}" },
         { src: "{{ asset('storage/2.jpg') }}" },
         { src: "{{ asset('storage/3.jpg') }}" },
