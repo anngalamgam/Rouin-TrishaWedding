@@ -1,6 +1,4 @@
-
 <?php
-
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GiftResource\Pages;
@@ -24,41 +22,32 @@ class GiftResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Section::make('Gift Information')
-                    ->schema([
-                        Select::make('wedding_id')
-                            ->label('Wedding')
-                            ->relationship('wedding', 'name')
-                            ->required(),
+        return $form->schema([
+            Section::make('Gift Information')
+                ->schema([
+                    Select::make('wedding_id')
+                        ->label('Wedding')
+                        ->relationship('wedding', 'name')
+                        ->required(),
 
-                        TextInput::make('name')
-                            ->required(),
+                    TextInput::make('name')->required(),
 
-                        TextInput::make('address')
-                            ->required(),
+                    TextInput::make('address')->required(),
 
-                        TextInput::make('maps'),
+                    TextInput::make('maps'),
 
-                        TextInput::make('note')
-                            ->label('Patokan'),
-                    ]),
-            ]);
+                    TextInput::make('note')->label('Patokan'),
+                ]),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
-
-                TextColumn::make('address')
-                    ->searchable(),
-
-                TextColumn::make('maps')
-                    ->limit(50),
+                TextColumn::make('name')->searchable(),
+                TextColumn::make('address')->searchable(),
+                TextColumn::make('maps')->limit(50),
             ])
             ->filters([])
             ->actions([
