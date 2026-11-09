@@ -1,5 +1,7 @@
 
-# Stage 1: Build frontend assets
+# ==========================================
+# STAGE 1: BUILD FRONTEND ASSETS
+# ==========================================
 FROM node:22-alpine AS frontend
 
 WORKDIR /app
@@ -11,7 +13,9 @@ COPY . .
 RUN npm run build
 
 
-# Stage 2: Laravel application
+# ==========================================
+# STAGE 2: LARAVEL APPLICATION
+# ==========================================
 FROM php:8.3-fpm-alpine
 
 WORKDIR /app
@@ -24,9 +28,10 @@ RUN apk add --no-cache \
     libjpeg-turbo \
     freetype \
     libzip \
-    libpq
+    libpq \
+    oniguruma
 
-# Install PHP build dependencies and extensions
+# Install PHP extensions
 RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS \
     libpng-dev \
@@ -34,9 +39,9 @@ RUN apk add --no-cache --virtual .build-deps \
     freetype-dev \
     libzip-dev \
     postgresql-dev \
+    oniguruma-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
-        pdo \
         pdo_mysql \
         pdo_pgsql \
         mbstring \
@@ -51,20 +56,20 @@ RUN apk add --no-cache --virtual .build-deps \
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel project
+# Copy Laravel application
 COPY . .
 
-# Install Laravel dependencies
+# Install Composer dependencies
 RUN composer install \
     --no-dev \
     --no-interaction \
     --prefer-dist \
     --optimize-autoloader
 
-# Copy compiled Vite assets
+# Copy Vite frontend assets
 COPY --from=frontend /app/public/build ./public/build
 
-# Create Laravel storage directories and permissions
+# Create Laravel directories and set permissions
 RUN mkdir -p \
     storage/framework/cache \
     storage/framework/sessions \
@@ -81,7 +86,8 @@ COPY docker-entrypoint.sh /app/docker-entrypoint.sh
 
 RUN chmod +x /app/docker-entrypoint.sh
 
-# Render web service port
+# Render port
 EXPOSE 10000
 
+# Start application
 CMD ["/app/docker-entrypoint.sh"]
