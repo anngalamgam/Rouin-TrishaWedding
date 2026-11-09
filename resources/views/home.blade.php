@@ -1167,27 +1167,27 @@
 
     <div class="bg-gallery">
         <div class="bg-photo bg-photo-1">
-            <img src="{{ asset('storage/gallery1.jpg') }}" alt="">
+            <img src="{{ asset('storage/gallery1.JPG') }}" alt="">
         </div>
         <div class="bg-photo bg-photo-2">
-            <img src="{{ asset('storage/gallery2.jpg') }}" alt="">
+            <img src="{{ asset('storage/gallery2.JPG') }}" alt="">
         </div>
         <div class="bg-photo bg-photo-3">
-            <img src="{{ asset('storage/gallery3.jpg') }}" alt="" >
+            <img src="{{ asset('storage/gallery3.JPG') }}" alt="" >
         </div>
         <div class="bg-photo bg-photo-4">
-            <img src="{{ asset('storage/gallery4.jpg') }}" alt="" >
+            <img src="{{ asset('storage/gallery4.JPG') }}" alt="" >
         </div>
         <div class="bg-photo bg-photo-5">
-            <img src="{{ asset('storage/gallery5.jpg') }}" alt="" >
+            <img src="{{ asset('storage/gallery5.JPG') }}" alt="" >
         </div>
         <div class="bg-photo bg-photo-6">
-            <img src="{{ asset('storage/gallery6.jpg') }}" alt="" >
+            <img src="{{ asset('storage/gallery6.JPG') }}" alt="" >
         </div>
     </div>
 
     <div class="couple-photo-frame" id="couplePhotoFrame">
-        <img src="{{ asset('storage/gallery2.jpg') }}" alt="" >
+        <img src="{{ asset('storage/gallery2.JPG') }}" alt="" >
     </div>
     <p class="couple-photo-hint">📷 tap photo for our gallery</p>
 
@@ -1221,7 +1221,7 @@
 
             <div class="couple-names-row">
                 <div class="person-photo">
-                    <img src="{{ asset('storage/male.jpg') }}" alt="" >
+                    <img src="{{ asset('storage/male.JPG') }}" alt="" >
                     <span class="person-label">Groom</span>
                 </div>
 
@@ -1232,7 +1232,7 @@
                 </div>
 
                 <div class="person-photo">
-                    <img src="{{ asset('storage/female.jpg') }}" alt="">
+                    <img src="{{ asset('storage/female.JPG') }}" alt="">
                     <span class="person-label">Bride</span>
                 </div>
             </div>
@@ -1526,20 +1526,20 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ============ WEDDING PHOTO GALLERY MODAL ============ */
     const weddingPhotos = [
        
-        { src: "{{ asset('storage/male.jpg') }}", },
-        { src: "{{ asset('storage/female.jpg') }}",  },
-        { src: "{{ asset('storage/gallery1.jpg') }}",  },
-        { src: "{{ asset('storage/gallery2.jpg') }}",  },
-        { src: "{{ asset('storage/gallery3.jpg') }}",  },
-        { src: "{{ asset('storage/gallery4.jpg') }}",  },
-        { src: "{{ asset('storage/gallery5.jpg') }}",  },
-        { src: "{{ asset('storage/gallery6.jpg') }}",  },
-        { src: "{{ asset('storage/1.jpg') }}" },
-        { src: "{{ asset('storage/2.jpg') }}" },
-        { src: "{{ asset('storage/3.jpg') }}" },
-        { src: "{{ asset('storage/4.jpg') }}" },
-        { src: "{{ asset('storage/5.jpg') }}" },
-        { src: "{{ asset('storage/6.jpg') }}" }
+        { src: "{{ asset('storage/male.JPG') }}", },
+        { src: "{{ asset('storage/female.JPG') }}",  },
+        { src: "{{ asset('storage/gallery1.JPG') }}",  },
+        { src: "{{ asset('storage/gallery2.JPG') }}",  },
+        { src: "{{ asset('storage/gallery3.JPG') }}",  },
+        { src: "{{ asset('storage/gallery4.JPG') }}",  },
+        { src: "{{ asset('storage/gallery5.JPG') }}",  },
+        { src: "{{ asset('storage/gallery6.JPG') }}",  },
+        { src: "{{ asset('storage/1.JPG') }}" },
+        { src: "{{ asset('storage/2.JPG') }}" },
+        { src: "{{ asset('storage/3.JPG') }}" },
+        { src: "{{ asset('storage/4.JPG') }}" },
+        { src: "{{ asset('storage/5.JPG') }}" },
+        { src: "{{ asset('storage/6.JPG') }}" }
     ];
 
     let galleryIndex = 0;
