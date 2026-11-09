@@ -29,9 +29,10 @@ RUN apk add --no-cache \
     freetype \
     libzip \
     libpq \
-    oniguruma
+    oniguruma \
+    icu-libs
 
-# Install PHP extensions
+# Install PHP build dependencies and extensions
 RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS \
     libpng-dev \
@@ -40,6 +41,7 @@ RUN apk add --no-cache --virtual .build-deps \
     libzip-dev \
     postgresql-dev \
     oniguruma-dev \
+    icu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
         pdo_mysql \
@@ -50,6 +52,7 @@ RUN apk add --no-cache --virtual .build-deps \
         bcmath \
         gd \
         zip \
+        intl \
         opcache \
     && apk del .build-deps
 
@@ -66,10 +69,10 @@ RUN composer install \
     --prefer-dist \
     --optimize-autoloader
 
-# Copy Vite frontend assets
+# Copy compiled Vite assets
 COPY --from=frontend /app/public/build ./public/build
 
-# Create Laravel directories and set permissions
+# Create Laravel directories and permissions
 RUN mkdir -p \
     storage/framework/cache \
     storage/framework/sessions \
@@ -79,15 +82,15 @@ RUN mkdir -p \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Configure Nginx and Supervisor
+# Copy Nginx and Supervisor configurations
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY supervisord.conf /etc/supervisord.conf
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
 
 RUN chmod +x /app/docker-entrypoint.sh
 
-# Render port
+# Render web service port
 EXPOSE 10000
 
-# Start application
+# Start Laravel application
 CMD ["/app/docker-entrypoint.sh"]
