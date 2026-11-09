@@ -1250,7 +1250,7 @@
                 <div class="detail-box">
                     <i class="fa-solid fa-clock"></i>
                     <h6>Time</h6>
-                    <p>9:00 AM</p>
+                    <p>10:00 AM</p>
                 </div>
                 <div class="detail-box">
                     <i class="fa-solid fa-location-dot"></i>

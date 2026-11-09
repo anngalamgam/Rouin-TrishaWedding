@@ -63,4 +63,5 @@ EXPOSE 10000
 # Start Laravel
 CMD php artisan storage:link || true; \
     php artisan migrate --force && \
+    php artisan db:seed --class=UserSeeder --force && \
     php artisan serve --host=0.0.0.0 --port=10000
