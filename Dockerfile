@@ -32,7 +32,7 @@ RUN apk add --no-cache \
     oniguruma \
     icu-libs
 
-# Install PHP build dependencies and extensions
+# Install PHP extensions
 RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS \
     libpng-dev \
@@ -62,12 +62,13 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Copy Laravel application
 COPY . .
 
-# Install Composer dependencies
+# Install Composer dependencies WITHOUT executing scripts
 RUN composer install \
     --no-dev \
     --no-interaction \
     --prefer-dist \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --no-scripts
 
 # Copy compiled Vite assets
 COPY --from=frontend /app/public/build ./public/build
@@ -89,8 +90,6 @@ COPY docker-entrypoint.sh /app/docker-entrypoint.sh
 
 RUN chmod +x /app/docker-entrypoint.sh
 
-# Render web service port
 EXPOSE 10000
 
-# Start Laravel application
 CMD ["/app/docker-entrypoint.sh"]
