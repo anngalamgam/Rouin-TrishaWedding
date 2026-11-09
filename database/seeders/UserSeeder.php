@@ -4,31 +4,31 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        $superadmin = User::create([
-            'name'      => 'lif',
-            'email'     => 'admin.alif@mail.com',
-            'password'  => bcrypt('superalifadmin'),
-            'email_verified_at' => now()
-        ]);
+        Role::firstOrCreate(['name' => 'Super admin', 'guard_name' => 'web']);
 
-        $superadmin_2 = User::create([
-            'name'      => 'pika',
-            'email'     => 'admin.pika@mail.com',
-            'password'  => bcrypt('superpikaadmin'),
-            'email_verified_at' => now()
-        ]);
+        $admins = [
+            ['name' => 'lif',  'email' => 'admin.alif@mail.com', 'password' => 'superalifadmin'],
+            ['name' => 'pika', 'email' => 'admin.pika@mail.com', 'password' => 'superpikaadmin'],
+        ];
 
-        $superadmin->assignRole('Super admin');
-        $superadmin_2->assignRole('Super admin');
+        foreach ($admins as $a) {
+            $user = User::firstOrCreate(
+                ['email' => $a['email']],
+                [
+                    'name'              => $a['name'],
+                    'password'          => Hash::make($a['password']),
+                    'email_verified_at' => now(),
+                ]
+            );
+
+            $user->assignRole('Super admin');
+        }
     }
 }
