@@ -1,14 +1,20 @@
+
 #!/bin/sh
 
-# Start Nginx
-nginx -g "daemon off;" &
+set -e
 
-# Start Vite dev server
-npm install
-npm run dev &
+cd /app
 
-# Start laravel
-php artisan key:generate
-php artisan migrate:fresh --seed
-php artisan storage:link
-php artisan serve
+mkdir -p \
+    storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache
+
+chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
+
+php artisan storage:link || true
+
+exec /usr/bin/supervisord -c /etc/supervisord.conf
