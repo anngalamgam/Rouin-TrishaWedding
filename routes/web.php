@@ -1,41 +1,51 @@
 <?php
 
+use App\Http\Controllers\GuestInvitationController;
 use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\RSVPController;
 use App\Models\rsvp;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/dashboard', function () {
+Route::middleware(['auth'])->group(function () {
 
-    $attending = RSVP::where('attendance_status', 'attending')->count();
+    Route::get('/dashboard', function () {
 
-    // Total Guests only counts attending guests
-    $totalGuests = $attending;
+        $attending = rsvp::where('attendance_status', 'attending')->count();
 
-    $notAttending = RSVP::where('attendance_status', 'not_attending')->count();
+        // Total Guests only counts attending guests
+        $totalGuests = $attending;
 
-    $attendingGuests = RSVP::where('attendance_status', 'attending')
-        ->latest()
-        ->get();
+        $notAttending = rsvp::where('attendance_status', 'not_attending')->count();
 
-    $notAttendingGuests = RSVP::where('attendance_status', 'not_attending')
-        ->latest()
-        ->get();
+        $attendingGuests = rsvp::where('attendance_status', 'attending')
+            ->latest()
+            ->get();
 
-    return view('dashboard', compact(
-        'totalGuests',
-        'attending',
-        'notAttending',
-        'attendingGuests',
-        'notAttendingGuests'
-    ));
+        $notAttendingGuests = rsvp::where('attendance_status', 'not_attending')
+            ->latest()
+            ->get();
 
-})->middleware(['auth'])->name('dashboard');
+        return view('dashboard', compact(
+            'totalGuests',
+            'attending',
+            'notAttending',
+            'attendingGuests',
+            'notAttendingGuests'
+        ));
+
+    })->name('dashboard');
+
+    // Download attending guests as an Excel-readable CSV
+    Route::get('/rsvp/attending/export', [RSVPController::class, 'exportAttending'])
+        ->name('rsvp.export.attending');
+});
 
 Route::post('/home', [HomeController::class, 'store']);
-Route::get('/guests/bulk-send', [App\Http\Controllers\GuestInvitationController::class, 'bulkSend'])->name('guest.bulk-send');
-Route::get('/guests/{guest}/message', [App\Http\Controllers\GuestInvitationController::class, 'viewMessage'])->name('guest.view-message');
-Route::get('/invitation/{guest}/{name?}', [\App\Http\Controllers\InvitationController::class, 'show'])->name('invitation.show');
 Route::post('/rsvp', [RSVPController::class, 'store']);
+
+Route::get('/guests/bulk-send', [GuestInvitationController::class, 'bulkSend'])->name('guest.bulk-send');
+Route::get('/guests/{guest}/message', [GuestInvitationController::class, 'viewMessage'])->name('guest.view-message');
+Route::get('/invitation/{guest}/{name?}', [InvitationController::class, 'show'])->name('invitation.show');

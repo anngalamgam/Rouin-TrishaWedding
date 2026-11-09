@@ -45,172 +45,143 @@
 
             </div>
 
-            <!-- Guest List -->
+            <!-- Search -->
+            <div class="mb-6">
+                <label for="search" class="sr-only">Search guests</label>
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="🔍 Search guest name..."
+                    class="w-full md:w-80 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+            </div>
 
             <!-- Two Tables -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Attending -->
+                <div class="bg-white shadow rounded-lg">
 
-    <!-- Attending -->
+                    <div class="bg-green-500 text-white px-6 py-4 rounded-t-lg flex items-center justify-between gap-3">
 
-    <div class="bg-white shadow rounded-lg">
+                        <h2 class="text-lg font-bold">
+                            ✅ Attending Guests ({{ $attending }})
+                        </h2>
 
-        <div class="bg-green-500 text-white px-6 py-4 rounded-t-lg">
+                        <a href="{{ route('rsvp.export.attending') }}"
+                           class="bg-white text-green-700 hover:bg-green-50 font-semibold text-sm px-4 py-2 rounded-lg shadow whitespace-nowrap">
+                            ⬇️ Download Excel
+                        </a>
 
-            <h2 class="text-lg font-bold">
-                ✅ Attending Guests ({{ $attending }})
-            </h2>
+                    </div>
 
-        </div>
+                    <div class="overflow-x-auto">
 
-        <div class="overflow-x-auto">
+                        <table class="min-w-full">
 
-            <table class="min-w-full">
+                            <thead class="bg-green-100">
+                                <tr>
+                                    <th class="px-6 py-3 text-left">#</th>
+                                    <th class="px-6 py-3 text-left">Guest Name</th>
+                                    <th class="px-6 py-3 text-left">Date</th>
+                                </tr>
+                            </thead>
 
-                <thead class="bg-green-100">
+                            <tbody id="attendingTable">
 
-                    <tr>
+                                @forelse($attendingGuests as $guest)
 
-                        <th class="px-6 py-3 text-left">#</th>
+                                    <tr class="border-b">
+                                        <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                                        <td class="px-6 py-4">{{ $guest->guest_name }}</td>
+                                        <td class="px-6 py-4">{{ $guest->created_at->format('M d, Y') }}</td>
+                                    </tr>
 
-                        <th class="px-6 py-3 text-left">Guest Name</th>
+                                @empty
 
-                        <th class="px-6 py-3 text-left">Date</th>
+                                    <tr>
+                                        <td colspan="3" class="text-center py-6">
+                                            No guests yet.
+                                        </td>
+                                    </tr>
 
-                    </tr>
+                                @endforelse
 
-                </thead>
+                            </tbody>
 
-                <tbody>
+                        </table>
 
-                @forelse($attendingGuests as $guest)
+                    </div>
 
-                    <tr class="border-b">
+                </div>
 
-                        <td class="px-6 py-4">
-                            {{ $loop->iteration }}
-                        </td>
+                <!-- Not Attending -->
+                <div class="bg-white shadow rounded-lg">
 
-                        <td class="px-6 py-4">
-                            {{ $guest->guest_name }}
-                        </td>
+                    <div class="bg-red-500 text-white px-6 py-4 rounded-t-lg">
 
-                        <td class="px-6 py-4">
-                            {{ $guest->created_at->format('M d, Y') }}
-                        </td>
+                        <h2 class="text-lg font-bold">
+                            ❌ Not Attending ({{ $notAttending }})
+                        </h2>
 
-                    </tr>
+                    </div>
 
-                @empty
+                    <div class="overflow-x-auto">
 
-                    <tr>
+                        <table class="min-w-full">
 
-                        <td colspan="3" class="text-center py-6">
-                            No guests yet.
-                        </td>
+                            <thead class="bg-red-100">
+                                <tr>
+                                    <th class="px-6 py-3 text-left">#</th>
+                                    <th class="px-6 py-3 text-left">Guest Name</th>
+                                    <th class="px-6 py-3 text-left">Date</th>
+                                </tr>
+                            </thead>
 
-                    </tr>
+                            <tbody id="notAttendingTable">
 
-                @endforelse
+                                @forelse($notAttendingGuests as $guest)
 
-                </tbody>
+                                    <tr class="border-b">
+                                        <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                                        <td class="px-6 py-4">{{ $guest->guest_name }}</td>
+                                        <td class="px-6 py-4">{{ $guest->created_at->format('M d, Y') }}</td>
+                                    </tr>
 
-            </table>
+                                @empty
 
-        </div>
+                                    <tr>
+                                        <td colspan="3" class="text-center py-6">
+                                            No guests yet.
+                                        </td>
+                                    </tr>
 
-    </div>
+                                @endforelse
 
-    <!-- Not Attending -->
+                            </tbody>
 
-    <div class="bg-white shadow rounded-lg">
+                        </table>
 
-        <div class="bg-red-500 text-white px-6 py-4 rounded-t-lg">
+                    </div>
 
-           <h2 class="text-lg font-bold text-black">
-    ❌ Not Attending ({{ $notAttending }})
-</h2>
+                </div>
 
-        </div>
-
-        <div class="overflow-x-auto">
-
-            <table class="min-w-full">
-
-                <thead class="bg-red-100">
-
-                    <tr>
-
-                        <th class="px-6 py-3 text-left">#</th>
-
-                        <th class="px-6 py-3 text-left">Guest Name</th>
-
-                        <th class="px-6 py-3 text-left">Date</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                @forelse($notAttendingGuests as $guest)
-
-                    <tr class="border-b">
-
-                        <td class="px-6 py-4">
-                            {{ $loop->iteration }}
-                        </td>
-
-                        <td class="px-6 py-4">
-                            {{ $guest->guest_name }}
-                        </td>
-
-                        <td class="px-6 py-4">
-                            {{ $guest->created_at->format('M d, Y') }}
-                        </td>
-
-                    </tr>
-
-                @empty
-
-                    <tr>
-
-                        <td colspan="3" class="text-center py-6">
-                            No guests yet.
-                        </td>
-
-                    </tr>
-
-                @endforelse
-
-                </tbody>
-
-            </table>
+            </div>
 
         </div>
 
     </div>
 
-</div>
+    <script>
+        // Filters rows in both guest tables as you type
+        document.getElementById('search').addEventListener('input', function () {
 
-<script>
+            let value = this.value.toLowerCase();
 
-document.getElementById('search').addEventListener('keyup', function(){
+            document.querySelectorAll('#attendingTable tr, #notAttendingTable tr').forEach(function (row) {
+                row.style.display = row.innerText.toLowerCase().includes(value) ? '' : 'none';
+            });
 
-    let value = this.value.toLowerCase();
-
-    let rows = document.querySelectorAll('#guestTable tr');
-
-    rows.forEach(function(row){
-
-        let text = row.innerText.toLowerCase();
-
-        row.style.display = text.includes(value) ? '' : 'none';
-
-    });
-
-});
-
-</script>
+        });
+    </script>
 
 </x-app-layout>
